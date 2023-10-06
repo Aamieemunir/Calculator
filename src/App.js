@@ -4,9 +4,25 @@ function App() {
   const[result,setResult]=useState("");
 
 
-  const clickHandler = (event)=>{
-    setResult(result.concat(event.target.value))
-  }
+  const clickHandler = (event) => {
+    const inputValue = event.target.value;
+  
+    // Check if input is a number with leading zeros
+    if (result === "0" && inputValue === "0") {
+      // Do nothing if result is already "0"
+      return;
+    } else if (/^0[1-9]+$/.test(result)) {
+      // If the current result starts with "0" and is followed by digits 1-9,
+      // remove leading zeros and concatenate the new input
+      setResult(result.replace(/^0+/, "") + inputValue);
+    } else {
+      // Concatenate the input with the current result
+      setResult(result + inputValue);
+    }
+  };
+  
+
+  
   const clearDisplay=()=>{
     setResult("")
   }
